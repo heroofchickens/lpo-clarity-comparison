@@ -32,31 +32,56 @@
       margin-bottom: 16px;
       text-transform: uppercase;
     }
-    .header h1 {
-      font-size: 26px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-    .header p {
-      font-size: 14px;
-      color: #8892a4;
-      max-width: 600px;
+    .header h1 { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .header p  { font-size: 14px; color: #8892a4; max-width: 600px; margin: 0 auto; }
+
+    /* ── Tabs ── */
+    .tab-nav {
+      display: flex;
+      gap: 4px;
+      padding: 20px 24px 0;
+      max-width: 1100px;
       margin: 0 auto;
+      flex-wrap: wrap;
     }
-    .header .change-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 16px;
-      background: #1e2335;
-      border: 1px solid #2e3550;
-      border-radius: 8px;
-      padding: 8px 16px;
+    .tab-btn {
+      background: #1a1f2e;
+      border: 1px solid #2a2f3e;
+      border-bottom: none;
+      color: #4f6080;
       font-size: 13px;
-      color: #a8b2c8;
+      font-family: inherit;
+      padding: 10px 18px;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
     }
-    .change-badge .arrow { color: #f59e0b; font-size: 16px; }
+    .tab-btn:hover { background: #222840; color: #8892a4; }
+    .tab-btn.active {
+      background: #141929;
+      border-color: #2a2f3e;
+      color: #c7d0e8;
+      font-weight: 600;
+      position: relative;
+    }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #141929;
+    }
+    .tab-border {
+      border-top: 1px solid #2a2f3e;
+      margin: 0 24px;
+      max-width: calc(1100px - 0px);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
 
     /* ── Layout ── */
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
@@ -71,53 +96,16 @@
       align-items: center;
       gap: 8px;
     }
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #1e2335;
-    }
-
-    /* ── KPI Cards ── */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-    .kpi-card {
-      background: #1a1f2e;
-      border: 1px solid #2a2f3e;
-      border-radius: 10px;
-      padding: 16px 20px;
-    }
-    .kpi-card .kpi-label {
-      font-size: 11px;
-      color: #4f6080;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-    }
-    .kpi-card .kpi-value {
-      font-size: 28px;
-      font-weight: 700;
-      color: #fff;
-    }
-    .kpi-card .kpi-sub {
-      font-size: 12px;
-      color: #8892a4;
-      margin-top: 2px;
-    }
-    .kpi-card.old .kpi-value { color: #fb923c; }
-    .kpi-card.new .kpi-value { color: #34d399; }
-    .kpi-card.diff .kpi-value { color: #a78bfa; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: #1e2335; }
 
     /* ── Version Labels ── */
     .version-labels {
       display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 16px;
       margin-bottom: 12px;
     }
+    .version-labels.cols-2 { grid-template-columns: 1fr 1fr; }
+    .version-labels.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
     .version-label {
       padding: 10px 16px;
       border-radius: 8px;
@@ -125,29 +113,16 @@
       font-weight: 600;
       text-align: center;
     }
-    .version-label.old {
-      background: rgba(251, 146, 60, 0.12);
-      border: 1px solid rgba(251, 146, 60, 0.3);
-      color: #fb923c;
-    }
-    .version-label.new {
-      background: rgba(52, 211, 153, 0.12);
-      border: 1px solid rgba(52, 211, 153, 0.3);
-      color: #34d399;
-    }
+    .version-label.a { background: rgba(251,146,60,.12); border: 1px solid rgba(251,146,60,.3); color: #fb923c; }
+    .version-label.b { background: rgba(52,211,153,.12); border: 1px solid rgba(52,211,153,.3); color: #34d399; }
+    .version-label.c { background: rgba(96,165,250,.12); border: 1px solid rgba(96,165,250,.3); color: #60a5fa; }
+    .version-label.d { background: rgba(167,139,250,.12); border: 1px solid rgba(167,139,250,.3); color: #a78bfa; }
 
-    /* ── Image Comparison ── */
-    .image-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .image-card {
-      background: #1a1f2e;
-      border: 1px solid #2a2f3e;
-      border-radius: 12px;
-      overflow: hidden;
-    }
+    /* ── Image Grid ── */
+    .image-grid { display: grid; gap: 16px; }
+    .image-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .image-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .image-card { background: #1a1f2e; border: 1px solid #2a2f3e; border-radius: 12px; overflow: hidden; }
     .image-card .img-header {
       padding: 12px 16px;
       border-bottom: 1px solid #2a2f3e;
@@ -155,511 +130,716 @@
       align-items: center;
       justify-content: space-between;
     }
-    .image-card img {
-      width: 100%;
-      display: block;
-    }
-    .tag {
-      font-size: 11px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: 600;
-    }
-    .tag.old { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
-    .tag.new { background: rgba(52, 211, 153, 0.15); color: #34d399; }
+    .image-card img { width: 100%; display: block; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+    .tag.a { background: rgba(251,146,60,.15); color: #fb923c; }
+    .tag.b { background: rgba(52,211,153,.15); color: #34d399; }
+    .tag.c { background: rgba(96,165,250,.15); color: #60a5fa; }
+    .tag.d { background: rgba(167,139,250,.15); color: #a78bfa; }
 
     /* ── Chart Area ── */
-    .chart-card {
-      background: #1a1f2e;
-      border: 1px solid #2a2f3e;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 16px;
-    }
-    .chart-card h3 {
-      font-size: 15px;
-      font-weight: 600;
-      color: #c7d0e8;
-      margin-bottom: 6px;
-    }
-    .chart-card p {
-      font-size: 12px;
-      color: #4f6080;
-      margin-bottom: 20px;
-    }
+    .chart-card { background: #1a1f2e; border: 1px solid #2a2f3e; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+    .chart-card h3 { font-size: 15px; font-weight: 600; color: #c7d0e8; margin-bottom: 6px; }
+    .chart-card p  { font-size: 12px; color: #4f6080; margin-bottom: 20px; }
     .chart-wrapper { position: relative; height: 320px; }
 
-    /* ── Change Zone annotation ── */
-    .change-zone-note {
+    /* ── Note Banner ── */
+    .note-banner {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      background: rgba(245, 158, 11, 0.08);
-      border: 1px solid rgba(245, 158, 11, 0.25);
       border-radius: 8px;
       padding: 14px 16px;
       margin-top: 16px;
       font-size: 13px;
-      color: #c8a85a;
     }
-    .change-zone-note .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .note-banner.green  { background: rgba(52,211,153,.08); border: 1px solid rgba(52,211,153,.25); color: #5ecba1; }
+    .note-banner.yellow { background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.25); color: #c8a85a; }
+    .note-banner.blue   { background: rgba(96,165,250,.08); border: 1px solid rgba(96,165,250,.25); color: #7ab3e8; }
+    .note-banner .icon  { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
 
     /* ── Analysis ── */
-    .analysis-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    .analysis-card {
-      background: #1a1f2e;
-      border: 1px solid #2a2f3e;
-      border-radius: 12px;
-      padding: 20px 22px;
-    }
-    .analysis-card h4 {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .analysis-card.old h4 { color: #fb923c; }
-    .analysis-card.new h4 { color: #34d399; }
-    .analysis-card ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-    .analysis-card ul li {
-      font-size: 13px;
-      color: #8892a4;
-      padding-left: 16px;
-      position: relative;
-    }
-    .analysis-card ul li::before {
-      content: '–';
-      position: absolute;
-      left: 0;
-      color: #3b4bdb;
-    }
+    .analysis-grid { display: grid; gap: 16px; margin-bottom: 24px; }
+    .analysis-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .analysis-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .analysis-card { background: #1a1f2e; border: 1px solid #2a2f3e; border-radius: 12px; padding: 20px 22px; }
+    .analysis-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+    .analysis-card.a h4 { color: #fb923c; }
+    .analysis-card.b h4 { color: #34d399; }
+    .analysis-card.c h4 { color: #60a5fa; }
+    .analysis-card.d h4 { color: #a78bfa; }
+    .analysis-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .analysis-card ul li { font-size: 13px; color: #8892a4; padding-left: 16px; position: relative; }
+    .analysis-card ul li::before { content: '–'; position: absolute; left: 0; color: #3b4bdb; }
 
-    .insight-box {
-      background: #1a1f2e;
-      border: 1px solid #3b4bdb;
-      border-radius: 12px;
-      padding: 24px;
-    }
-    .insight-box h3 {
-      font-size: 16px;
-      font-weight: 700;
-      color: #a5b4fc;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .insight-item {
-      display: flex;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
+    /* ── Insight Box ── */
+    .insight-box { background: #1a1f2e; border: 1px solid #3b4bdb; border-radius: 12px; padding: 24px; }
+    .insight-box h3 { font-size: 16px; font-weight: 700; color: #a5b4fc; margin-bottom: 16px; }
+    .insight-item { display: flex; gap: 14px; margin-bottom: 18px; }
     .insight-item:last-child { margin-bottom: 0; }
     .insight-num {
-      flex-shrink: 0;
-      width: 26px;
-      height: 26px;
-      background: #3b4bdb;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: #fff;
-      margin-top: 1px;
+      flex-shrink: 0; width: 26px; height: 26px;
+      background: #3b4bdb; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: #fff; margin-top: 1px;
     }
-    .insight-text strong {
-      display: block;
-      font-size: 14px;
-      color: #c7d0e8;
-      margin-bottom: 4px;
-    }
-    .insight-text p {
-      font-size: 13px;
-      color: #6b7a94;
-    }
+    .insight-text strong { display: block; font-size: 14px; color: #c7d0e8; margin-bottom: 4px; }
+    .insight-text p { font-size: 13px; color: #6b7a94; }
     .insight-text .verdict {
-      display: inline-block;
-      margin-top: 6px;
-      font-size: 12px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: 600;
+      display: inline-block; margin-top: 6px;
+      font-size: 12px; padding: 3px 10px; border-radius: 20px; font-weight: 600;
     }
-    .verdict.positive { background: rgba(52, 211, 153, 0.15); color: #34d399; }
-    .verdict.caution  { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
-    .verdict.negative { background: rgba(251, 113, 133, 0.15); color: #fb7185; }
+    .verdict.positive { background: rgba(52,211,153,.15); color: #34d399; }
+    .verdict.caution  { background: rgba(245,158,11,.15); color: #f59e0b; }
+    .verdict.neutral  { background: rgba(96,165,250,.15); color: #60a5fa; }
 
-    .footer {
-      padding: 32px 24px;
-      text-align: center;
-      border-top: 1px solid #1e2335;
-      font-size: 12px;
-      color: #3a4560;
-    }
+    .footer { padding: 32px 24px; text-align: center; border-top: 1px solid #1e2335; font-size: 12px; color: #3a4560; }
 
-    @media (max-width: 680px) {
-      .image-grid, .analysis-grid, .version-labels { grid-template-columns: 1fr; }
-      .kpi-grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 760px) {
+      .image-grid.cols-2, .image-grid.cols-4,
+      .version-labels.cols-2, .version-labels.cols-4,
+      .analysis-grid.cols-2, .analysis-grid.cols-4 { grid-template-columns: 1fr; }
       .header h1 { font-size: 20px; }
+      .tab-btn { font-size: 12px; padding: 8px 12px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ─── HEADER ─────────────────────────────────────── -->
 <div class="header">
   <div class="label">LPO レポート｜Microsoft Clarity Attention Map</div>
-  <h1>LP 改善前後の Attention 分析</h1>
-  <p>株）ブレインマークス｜マップ塾LPのコンテンツ差し替え効果を可視化</p>
-  <div class="change-badge">
-    <span>旧：お悩みパート ＋ 顧客の声（5〜10%位置）</span>
-    <span class="arrow">→</span>
-    <span>新：プログラム内容</span>
-  </div>
+  <h1>LP Attention 分析レポート</h1>
+  <p>株）ブレインマークス｜各テスト・施策の Attention データを可視化</p>
 </div>
 
-<!-- ─── KPI ─────────────────────────────────────────── -->
+<!-- ── Tab Nav ── -->
+<div class="tab-nav">
+  <button class="tab-btn active" data-tab="tab1">FV改善（新旧比較）</button>
+  <button class="tab-btn" data-tab="tab2">CVR・誘導率改善</button>
+  <button class="tab-btn" data-tab="tab3">CVR改善（離脱防止）</button>
+  <button class="tab-btn" data-tab="tab4">広告用4パターン</button>
+</div>
+<div style="border-top:1px solid #2a2f3e;max-width:1100px;margin:0 24px;"></div>
+
+<!-- ════════════════════════════════════════════
+     TAB 1: FV改善 新旧比較
+════════════════════════════════════════════ -->
+<div id="tab1" class="tab-content active">
 <div class="container">
+
   <div class="section">
-    <div class="section-title">概要指標</div>
-    <div class="kpi-grid">
-      <div class="kpi-card old">
-        <div class="kpi-label">旧LP ページビュー</div>
-        <div class="kpi-value">234</div>
-        <div class="kpi-sub">03/24〜04/22（30日間）</div>
-      </div>
-      <div class="kpi-card new">
-        <div class="kpi-label">新LP ページビュー</div>
-        <div class="kpi-value">661</div>
-        <div class="kpi-sub">05/01〜05/27（27日間）</div>
-      </div>
-      <div class="kpi-card old">
-        <div class="kpi-label">旧LP：5% 位置の注意（時間）</div>
-        <div class="kpi-value">3:07</div>
-        <div class="kpi-sub">セッション占有率 39.9%</div>
-      </div>
-      <div class="kpi-card new">
-        <div class="kpi-label">新LP：5% 位置の注意（時間）</div>
-        <div class="kpi-value">0:36</div>
-        <div class="kpi-sub">セッション占有率 18.1%</div>
-      </div>
-      <div class="kpi-card old">
-        <div class="kpi-label">旧LP：10% 位置の注意（時間）</div>
-        <div class="kpi-value">3:11</div>
-        <div class="kpi-sub">セッション占有率 40.6%</div>
-      </div>
-      <div class="kpi-card new">
-        <div class="kpi-label">新LP：10% 位置の注意（時間）</div>
-        <div class="kpi-value">0:04</div>
-        <div class="kpi-sub">セッション占有率 2.3%</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ─── HEATMAP IMAGES ────────────────────────────── -->
-  <div class="section" style="padding-top:0">
-    <div class="section-title">Attention Map 比較</div>
-    <div class="version-labels">
-      <div class="version-label old">旧LP｜お悩み＋顧客の声（03/24〜04/22）</div>
-      <div class="version-label new">新LP｜プログラム内容（05/01〜05/27）</div>
-    </div>
-    <div class="image-grid">
-      <div class="image-card">
-        <div class="img-header">
-          <span style="font-size:13px;color:#8892a4;">旧バージョン</span>
-          <span class="tag old">OLD • 234 PV</span>
-        </div>
-        <img src="heatmap_old.png" alt="旧LP Attentionマップ">
-      </div>
-      <div class="image-card">
-        <div class="img-header">
-          <span style="font-size:13px;color:#8892a4;">新バージョン</span>
-          <span class="tag new">NEW • 661 PV</span>
-        </div>
-        <img src="heatmap_new.png" alt="新LP Attentionマップ">
-      </div>
-    </div>
-  </div>
-
-  <!-- ─── CHART 1: TIME ────────────────────────────── -->
-  <div class="section" style="padding-top:0">
     <div class="section-title">数値データ比較</div>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:#1e2335;border:1px solid #2e3550;border-radius:8px;padding:8px 16px;font-size:13px;color:#a8b2c8;margin-bottom:20px;">
+      <span>旧：お悩みパート ＋ 顧客の声（5〜10%位置）</span>
+      <span style="color:#f59e0b;font-size:16px;">→</span>
+      <span>新：プログラム内容</span>
+    </div>
     <div class="chart-card">
       <h3>注意時間（秒）の比較：スクロール深度ごと</h3>
       <p>各スクロール深度で平均何秒注目されたか。差し替えた 5〜10% 付近の変化に注目。</p>
-      <div class="chart-wrapper">
-        <canvas id="chartTime"></canvas>
-      </div>
+      <div class="chart-wrapper"><canvas id="t1_time"></canvas></div>
     </div>
-    <div class="change-zone-note">
-      <span class="icon">⚡</span>
+    <div class="note-banner green">
+      <span class="icon">✅</span>
       <div>
-        <strong style="display:block;margin-bottom:3px;">差し替えゾーン（5〜10%）での変化</strong>
-        旧LP では 5%・10% 位置に合計 <strong>約6分20秒</strong>（セッション時間の約80%！）が集中。
-        新LP では同位置の合計が <strong>40秒</strong> に減少。お悩み＋顧客の声が「読ませるコンテンツ」として機能していた証拠です。
+        <strong style="display:block;margin-bottom:3px;">冒頭への過集中が解消された（5〜10%）</strong>
+        旧LP では 5%・10% 位置にセッション時間の <strong>約80%</strong> が集中し、ページ後半がほぼ読まれていない状態でした。
+        新LP ではその集中が解消され、注意がページ全体に分散。CTAや申込セクションにも確実に目が届くようになっています。
       </div>
     </div>
-
     <div class="chart-card" style="margin-top:16px">
       <h3>セッション占有率（%）の比較：スクロール深度ごと</h3>
       <p>各スクロール深度がセッション全体の何%を占めるか。注意の分布パターンを可視化。</p>
-      <div class="chart-wrapper">
-        <canvas id="chartSession"></canvas>
+      <div class="chart-wrapper"><canvas id="t1_session"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0">
+    <div class="section-title">Attention Map 比較</div>
+    <div class="version-labels cols-2">
+      <div class="version-label a">旧LP｜お悩み＋顧客の声（03/24〜04/22）</div>
+      <div class="version-label b">新LP｜プログラム内容（05/01〜05/27）</div>
+    </div>
+    <div class="image-grid cols-2">
+      <div class="image-card">
+        <div class="img-header"><span style="font-size:13px;color:#8892a4;">旧バージョン</span><span class="tag a">OLD • 234 PV</span></div>
+        <img src="heatmap_old.png" alt="旧LP">
+      </div>
+      <div class="image-card">
+        <div class="img-header"><span style="font-size:13px;color:#8892a4;">新バージョン</span><span class="tag b">NEW • 661 PV</span></div>
+        <img src="heatmap_new.png" alt="新LP">
       </div>
     </div>
   </div>
 
-  <!-- ─── ANALYSIS ─────────────────────────────────── -->
   <div class="section" style="padding-top:0">
     <div class="section-title">所感・考察</div>
-
-    <div class="analysis-grid">
-      <div class="analysis-card old">
-        <h4>📌 旧LP の特徴（お悩み＋顧客の声）</h4>
+    <div class="analysis-grid cols-2">
+      <div class="analysis-card a">
+        <h4>📌 旧LP の課題（お悩み＋顧客の声）</h4>
         <ul>
-          <li>5〜10% に全体の <strong>80%</strong> の注意が集中</li>
-          <li>お悩みパートへの共感 → 顧客の声での信頼形成という流れが機能</li>
-          <li>熟読型：少人数（234PV）が長時間滞在</li>
-          <li>15% 以降は注意が急激に落下 → 深部まで読まれていない</li>
-          <li>後半コンテンツ（料金・申込）への注意も薄い</li>
+          <li>5〜10% に全体の <strong>80%</strong> の注意が集中し、後半が読まれていなかった</li>
+          <li>プログラム内容・料金・申込セクションへの注意がほぼゼロ</li>
+          <li>冒頭を熟読したあと「満足して離脱」が起きやすい構造</li>
+          <li>15% 以降の注意が急落 → CVポイントまでユーザーが到達していない</li>
         </ul>
       </div>
-      <div class="analysis-card new">
-        <h4>📌 新LP の特徴（プログラム内容）</h4>
+      <div class="analysis-card b">
+        <h4>📌 新LP の改善点（プログラム内容）</h4>
         <ul>
-          <li>5〜10% の集中が解消 → 注意が全体に分散</li>
-          <li>40〜45% に次のピーク（プログラム詳細か価格帯付近？）</li>
-          <li>85〜90% にも持続的な注意 → ページ最後まで読まれている</li>
-          <li>PV 数が大幅増（×2.8倍）→ 母集団が異なる点に注意</li>
-          <li>「何を学ぶか」先出しによりスキャン型閲覧に移行した可能性</li>
+          <li>注意が全体に均等分散 → ページの隅々まで読まれている</li>
+          <li>40〜45% に新たなピーク → 2度目のプログラム内容で注目を集めることに成功</li>
+          <li>85〜90% まで持続的な注意 → CTA・申込セクションに確実に到達</li>
+          <li>「何を学ぶか」が先に分かるため、検討意欲の高いユーザーに刺さる構成</li>
         </ul>
       </div>
     </div>
-
     <div class="insight-box">
       <h3>🧠 総合所感</h3>
-
       <div class="insight-item">
         <div class="insight-num">1</div>
         <div class="insight-text">
-          <strong>旧LP の「熟読集中型」は、感情的訴求の成功例</strong>
-          <p>5〜10% に全注意を集めたのは、お悩みパートと顧客の声の組み合わせが「自分ごと化」を生んだから。
-          ただし熟読後に深部へ進む動線が弱かった可能性がある。コンバージョンがここで完結していたなら問題ないが、
-          「全部読み終えたら安心して離脱」が起きていた疑いもある。</p>
-          <span class="verdict caution">要：コンバージョンデータとの照合</span>
+          <strong>旧LPの冒頭集中は「機会損失」だった</strong>
+          <p>お悩みパート＋顧客の声がセッション時間の80%を吸収していたことは、ページ後半が存在しないも同然の状態を意味する。プログラム内容・料金・申込という「決断に必要な情報」が読まれていないまま離脱していた可能性が高い。</p>
+          <span class="verdict caution">後半コンテンツへの到達率に問題あり</span>
         </div>
       </div>
-
       <div class="insight-item">
         <div class="insight-num">2</div>
         <div class="insight-text">
-          <strong>新LP の「分散閲覧型」は、コンテンツへの興味探索と解釈できる</strong>
-          <p>プログラム内容を先出しすることで、訪問者は「自分に合うか？」をスキャンしながらスクロールする行動に変化。
-          注意が薄く広く分散しているのは必ずしも悪いことではなく、
-          ページ全体を走査してから意思決定する「論理的・スペック重視」ユーザーには合っている。</p>
-          <span class="verdict positive">ページ全体到達率は改善</span>
+          <strong>新LPはページ全体を「読ませる」構造に改善された</strong>
+          <p>プログラム内容を先出しすることで、訪問者は「自分に合うか？」を判断しながらスクロールするようになった。85〜90% まで注意が持続していることは、申込・CTAセクションまで確実に読まれていることを示す。</p>
+          <span class="verdict positive">ページ全体到達率が大幅改善</span>
         </div>
       </div>
-
       <div class="insight-item">
         <div class="insight-num">3</div>
         <div class="insight-text">
-          <strong>仮説：「共感→証拠→詳細」の順序を崩した可能性</strong>
-          <p>LPの王道は「悩みへの共感 → 信頼証明（実績・声） → 解決策（プログラム）」の順序。
-          新LPはプログラムを先出しすることで「まだ信頼も共感も持てていないのに詳細を見せられた」状態になりえる。
-          特に認知度の低い段階では、先に「あなたの悩みを知っている」と示すほうがコンバージョンに繋がりやすい。</p>
-          <span class="verdict negative">感情的訴求フローの逆転リスク</span>
+          <strong>40〜45% の新ピークが特に有望</strong>
+          <p>この位置は2度目のプログラム内容があり、初回で興味を持たせてより注目を集めることに成功している。「一度見て気になった内容をもう一度確認する」という能動的な読み方が生まれており、検討意欲の高まりを示す理想的な動き。</p>
+          <span class="verdict positive">検討フェーズへの誘導に成功</span>
         </div>
       </div>
-
       <div class="insight-item">
         <div class="insight-num">4</div>
         <div class="insight-text">
-          <strong>推奨次アクション</strong>
-          <p>①コンバージョン率（CV数）を旧・新で比較してこそ真の評価ができる。注意時間だけでは勝敗不明。
-          ②もし新LPのCVRが下がっているなら、プログラム内容の手前に「1〜2スライドの共感ブロック」を入れる折衷案が有効。
-          ③新LPの 40〜45% ピークの正体を確認（スクロールマップと照合）。ここがCTAなら新LP有利の可能性。</p>
-          <span class="verdict caution">CVデータとスクロールマップとの照合を推奨</span>
+          <strong>次の一手</strong>
+          <p>①2度目のプログラム内容（40〜45%）で注目が高まっているタイミングの直後にCTAを追加配置する。②CVR（コンバージョン率）を旧・新で比較して効果を数値で確認する。③85〜90% まで読んでいる高意欲層に対してページ末尾のCTAを強化してクロージング精度を上げる。</p>
+          <span class="verdict positive">2度目プログラム直後のCTA追加が最優先</span>
         </div>
       </div>
     </div>
   </div>
+
 </div>
+</div><!-- /tab1 -->
+
+<!-- ════════════════════════════════════════════
+     TAB 2: CVR・誘導率改善
+════════════════════════════════════════════ -->
+<div id="tab2" class="tab-content">
+<div class="container">
+
+  <div class="section">
+    <div class="section-title">数値データ比較</div>
+    <div class="chart-card">
+      <h3>注意時間（秒）の比較：スクロール深度ごと</h3>
+      <p>各スクロール深度で平均何秒注目されたか。</p>
+      <div class="chart-wrapper"><canvas id="t2_time"></canvas></div>
+    </div>
+    <div class="note-banner blue">
+      <span class="icon">📊</span>
+      <div>
+        <strong style="display:block;margin-bottom:3px;">パターンAは中盤（60%）に追加ピークを形成</strong>
+        パターンAは冒頭だけでなく60%位置でも注目を集めており、ページ中盤への誘導に成功している。
+        パターンBは5〜15%のみで集中が終わっており、後半はほぼ読まれていない。
+        ただし両パターンともPVが少なく、継続計測でデータを積む必要がある。
+      </div>
+    </div>
+    <div class="chart-card" style="margin-top:16px">
+      <h3>セッション占有率（%）の比較：スクロール深度ごと</h3>
+      <p>各スクロール深度がセッション全体の何%を占めるか。</p>
+      <div class="chart-wrapper"><canvas id="t2_session"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0">
+    <div class="section-title">Attention Map 比較</div>
+    <div class="version-labels cols-2">
+      <div class="version-label a">パターン A｜/rd/0415a/1.html（28 PV）</div>
+      <div class="version-label b">パターン B｜/rd/0415a/3.html（15 PV）</div>
+    </div>
+    <div class="image-grid cols-2">
+      <div class="image-card">
+        <div class="img-header"><span style="font-size:13px;color:#8892a4;">パターン A</span><span class="tag a">A • 28 PV</span></div>
+        <img src="cvr_ind_a.png" alt="パターンA">
+      </div>
+      <div class="image-card">
+        <div class="img-header"><span style="font-size:13px;color:#8892a4;">パターン B</span><span class="tag b">B • 15 PV</span></div>
+        <img src="cvr_ind_b.png" alt="パターンB">
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0">
+    <div class="section-title">所感・考察</div>
+    <div class="analysis-grid cols-2">
+      <div class="analysis-card a">
+        <h4>📌 パターン A（28 PV）</h4>
+        <ul>
+          <li>5〜30% に広めに注意が分散し、後半への離脱が緩やか</li>
+          <li>60% 位置に追加ピーク（19.37%）→ ページ中盤まで誘導できている</li>
+          <li>誘導率改善という目的に沿ったアテンション分布</li>
+          <li>サンプル数が少ないため、現時点では傾向の確認にとどまる</li>
+        </ul>
+      </div>
+      <div class="analysis-card b">
+        <h4>📌 パターン B（15 PV）</h4>
+        <ul>
+          <li>5〜15% のみにセッション時間の98%が集中</li>
+          <li>16% 以降はほぼゼロ → 後半コンテンツが読まれていない</li>
+          <li>誘導率改善の効果は現時点では確認できない</li>
+          <li>PV 数が非常に少なく、データとしての信頼性が低い</li>
+        </ul>
+      </div>
+    </div>
+    <div class="insight-box">
+      <h3>🧠 総合所感</h3>
+      <div class="insight-item">
+        <div class="insight-num">1</div>
+        <div class="insight-text">
+          <strong>パターンAが中盤誘導に優位</strong>
+          <p>60%位置の追加ピークはパターンAに特有の動き。冒頭で興味を引いた後もスクロールが続いており、誘導率改善の目的に沿った結果が出ている。</p>
+          <span class="verdict positive">パターンA が現時点で優勢</span>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">2</div>
+        <div class="insight-text">
+          <strong>パターンBは冒頭離脱の典型パターン</strong>
+          <p>5〜15%に集中して終わる分布は、FVだけ見て離脱するユーザーが多いことを示す。誘導率改善の施策として機能するためには、後半への動線を強化する改修が必要。</p>
+          <span class="verdict caution">後半誘導の仕組みが不足</span>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">3</div>
+        <div class="insight-text">
+          <strong>次の一手</strong>
+          <p>①A・B合計でもPVが43と少ないため、結論は継続計測後に出す。②パターンAの60%ピーク位置にCTAを追加し、誘導率をさらに高める。③パターンBはFV後の次のセクションへの引き込みを強化する改修を検討する。</p>
+          <span class="verdict neutral">継続計測しながらAをベースに改善</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /tab2 -->
+
+<!-- ════════════════════════════════════════════
+     TAB 3: CVR改善（離脱防止）
+════════════════════════════════════════════ -->
+<div id="tab3" class="tab-content">
+<div class="container">
+
+  <div class="section">
+    <div class="section-title">数値データ比較</div>
+    <div class="chart-card">
+      <h3>注意時間（秒）の比較：スクロール深度ごと</h3>
+      <p>各スクロール深度で平均何秒注目されたか。</p>
+      <div class="chart-wrapper"><canvas id="t3_time"></canvas></div>
+    </div>
+    <div class="note-banner green">
+      <span class="icon">✅</span>
+      <div>
+        <strong style="display:block;margin-bottom:3px;">パターンBは後半にも注意が残存 → 離脱防止の萌芽</strong>
+        パターンAは5〜10%に85%超が集中し、後半がほぼ読まれていない。
+        パターンBも冒頭集中はあるものの、35〜45%・85〜90%にも注意が残り、後半まで読むユーザー層が存在する。
+        離脱防止という目的においてはパターンBが優勢。
+      </div>
+    </div>
+    <div class="chart-card" style="margin-top:16px">
+      <h3>セッション占有率（%）の比較：スクロール深度ごと</h3>
+      <p>各スクロール深度がセッション全体の何%を占めるか。</p>
+      <div class="chart-wrapper"><canvas id="t3_session"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0">
+    <div class="section-title">Attention Map 比較</div>
+    <div class="version-labels cols-2">
+      <div class="version-label a">パターン A｜/rd/0415b/2.html（76 PV）</div>
+      <div class="version-label b">パターン B｜/rd/0415b/3.html（40 PV）</div>
+    </div>
+    <div class="image-grid cols-2">
+      <div class="image-card">
+        <div class="img-header"><span style="font-size:13px;color:#8892a4;">パターン A</span><span class="tag a">A • 76 PV</span></div>
+        <img src="cvr_ret_a.png" alt="パターンA">
+      </div>
+      <div class="image-card">
+        <div class="img-header"><span style="font-size:13px;color:#8892a4;">パターン B</span><span class="tag b">B • 40 PV</span></div>
+        <img src="cvr_ret_b.png" alt="パターンB">
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0">
+    <div class="section-title">所感・考察</div>
+    <div class="analysis-grid cols-2">
+      <div class="analysis-card a">
+        <h4>📌 パターン A（76 PV）</h4>
+        <ul>
+          <li>5〜10% に <strong>85%超</strong> が集中。典型的な冒頭集中型</li>
+          <li>15% 以降はほぼゼロ → 後半への到達が極めて少ない</li>
+          <li>離脱防止施策として後半コンテンツが機能していない状態</li>
+          <li>PV数は多いが、目的（離脱防止）との乖離が大きい</li>
+        </ul>
+      </div>
+      <div class="analysis-card b">
+        <h4>📌 パターン B（40 PV）</h4>
+        <ul>
+          <li>5% に49.5%の集中はあるが、冒頭依存が緩和されている</li>
+          <li>35〜45% に中盤ピーク → コンテンツが離脱を引き止めている</li>
+          <li>85〜90% にも6%超の注意 → ページ最後まで到達するユーザーが存在</li>
+          <li>離脱防止という目的に対して、最も近い動きを見せている</li>
+        </ul>
+      </div>
+    </div>
+    <div class="insight-box">
+      <h3>🧠 総合所感</h3>
+      <div class="insight-item">
+        <div class="insight-num">1</div>
+        <div class="insight-text">
+          <strong>目的との整合性でパターンBが明確に優勢</strong>
+          <p>「離脱防止」という施策目的に対して、後半まで注意が残るパターンBのほうが結果として合致している。パターンAはPVが多いにもかかわらず、後半が読まれていないという構造的な問題がある。</p>
+          <span class="verdict positive">パターン B が施策目的に合致</span>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">2</div>
+        <div class="insight-text">
+          <strong>パターンAは冒頭施策の強さが仇になっている可能性</strong>
+          <p>5〜10%に強い集中が起きているのは、冒頭コンテンツ自体の訴求力が高いから。ただし「冒頭で満足 → 離脱」のループが起きているとすれば、その後の離脱防止コンテンツが機能する前に離脱している構造的な問題がある。</p>
+          <span class="verdict caution">冒頭の強さが後半誘導を阻害している可能性</span>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">3</div>
+        <div class="insight-text">
+          <strong>次の一手</strong>
+          <p>①パターンBをベースにして、中盤（35〜45%）と後半（85〜90%）のCTAを強化する。②パターンBの冒頭（5%）集中を少し分散させてより均等な分布にできれば、さらに改善が見込める。③パターンAの冒頭コンテンツのあとに「次を読みたくなる」フックを追加する改修も有効。</p>
+          <span class="verdict positive">パターンBの中盤・後半CTA強化が最優先</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /tab3 -->
+
+<!-- ════════════════════════════════════════════
+     TAB 4: 広告用4パターン
+════════════════════════════════════════════ -->
+<div id="tab4" class="tab-content">
+<div class="container">
+
+  <div class="section">
+    <div class="section-title">数値データ比較</div>
+    <div class="chart-card">
+      <h3>注意時間（秒）の比較：スクロール深度ごと</h3>
+      <p>各スクロール深度で平均何秒注目されたか。4パターン（歯・税理士・介護に特化）の差異を確認。</p>
+      <div class="chart-wrapper"><canvas id="t4_time"></canvas></div>
+    </div>
+    <div class="note-banner blue">
+      <span class="icon">📊</span>
+      <div>
+        <strong style="display:block;margin-bottom:3px;">A・D共通の55〜60%ピーク → 広告ターゲットに響くゾーン</strong>
+        パターンAとDは共に55〜60%位置で強いピークを形成。この位置のコンテンツが複数の広告ターゲット層に共通して刺さっている可能性が高い。
+        パターンDは最大PV（166）を持ちながら後半（85%）まで注意が持続しており、最も深く読まれているパターン。
+      </div>
+    </div>
+    <div class="chart-card" style="margin-top:16px">
+      <h3>セッション占有率（%）の比較：スクロール深度ごと</h3>
+      <p>各スクロール深度がセッション全体の何%を占めるか。</p>
+      <div class="chart-wrapper"><canvas id="t4_session"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0">
+    <div class="section-title">Attention Map 比較</div>
+    <div class="version-labels cols-4">
+      <div class="version-label a">パターン A｜v8a（154 PV）</div>
+      <div class="version-label b">パターン B｜v8b（131 PV）</div>
+      <div class="version-label c">パターン C｜v8c（123 PV）</div>
+      <div class="version-label d">パターン D｜v8d（166 PV）</div>
+    </div>
+    <div class="image-grid cols-4">
+      <div class="image-card">
+        <div class="img-header"><span style="font-size:12px;color:#8892a4;">パターン A</span><span class="tag a">A • 154 PV</span></div>
+        <img src="ad_a.png" alt="パターンA">
+      </div>
+      <div class="image-card">
+        <div class="img-header"><span style="font-size:12px;color:#8892a4;">パターン B</span><span class="tag b">B • 131 PV</span></div>
+        <img src="ad_b.png" alt="パターンB">
+      </div>
+      <div class="image-card">
+        <div class="img-header"><span style="font-size:12px;color:#8892a4;">パターン C</span><span class="tag c">C • 123 PV</span></div>
+        <img src="ad_c.png" alt="パターンC">
+      </div>
+      <div class="image-card">
+        <div class="img-header"><span style="font-size:12px;color:#8892a4;">パターン D</span><span class="tag d">D • 166 PV</span></div>
+        <img src="ad_d.png" alt="パターンD">
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0">
+    <div class="section-title">所感・考察</div>
+    <div class="analysis-grid cols-4">
+      <div class="analysis-card a">
+        <h4>📌 パターン A（154 PV）</h4>
+        <ul>
+          <li>5-10%（37%）と55-60%（34%）の<strong>二山型</strong></li>
+          <li>FVと中盤で二度の山を形成</li>
+          <li>冒頭→中盤への誘導が機能している</li>
+          <li>後半（70%〜）への到達は薄め</li>
+        </ul>
+      </div>
+      <div class="analysis-card b">
+        <h4>📌 パターン B（131 PV）</h4>
+        <ul>
+          <li>全体に広く均等に分散</li>
+          <li>55〜75% ゾーンに持続的な注意</li>
+          <li>「じっくり読む層」に合った分布</li>
+          <li>特定の山がなく安定感がある</li>
+        </ul>
+      </div>
+      <div class="analysis-card c">
+        <h4>📌 パターン C（123 PV）</h4>
+        <ul>
+          <li>35% にピーク（12.71%）→ 中盤早めに注目集中</li>
+          <li>55-60% にも中程度のピーク</li>
+          <li>冒頭（5-10%）の集中がADより低め</li>
+          <li>FVの訴求力がやや弱い可能性</li>
+        </ul>
+      </div>
+      <div class="analysis-card d">
+        <h4>📌 パターン D（166 PV）</h4>
+        <ul>
+          <li>4パターン中 <strong>最大PV</strong></li>
+          <li>55% と 85% の二山型 → 後半まで深く到達</li>
+          <li>後半の持続力が4パターン中で最も高い</li>
+          <li>広告訴求力と読了率の両面で最優秀</li>
+        </ul>
+      </div>
+    </div>
+    <div class="insight-box">
+      <h3>🧠 総合所感</h3>
+      <div class="insight-item">
+        <div class="insight-num">1</div>
+        <div class="insight-text">
+          <strong>パターンDが総合的に最優秀</strong>
+          <p>PV最大（166）かつ後半（55%・85%）まで最も深く読まれている。広告からの流入誘引力と、LPを最後まで読ませる力を両立しており、4パターン中で最もコンバージョンにつながりやすい構造と判断できる。</p>
+          <span class="verdict positive">パターン D が全指標でリード</span>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">2</div>
+        <div class="insight-text">
+          <strong>A・D共通の55〜60%ピークは重要なシグナル</strong>
+          <p>異なる広告クリエイティブから流入したA・Dのユーザーが同じ位置（55〜60%）で注目している事実は、その位置のコンテンツが複数ターゲット層に刺さっていることを意味する。このゾーンへのCTA追加は全パターン共通で有効と考えられる。</p>
+          <span class="verdict positive">55〜60% ゾーンはCTA追加の最優先位置</span>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">3</div>
+        <div class="insight-text">
+          <strong>パターンBの均等分散は「熟読型ターゲット」向きの可能性</strong>
+          <p>特定の山がなく全体に広く分散するパターンBは、特定の業種訴求より「論理的・情報収集型」のユーザーに刺さるFVかもしれない。CVRデータと照合することで、PV数は劣るがCV効率が高い可能性もある。</p>
+          <span class="verdict neutral">CVRデータとの照合で真価が判明</span>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">4</div>
+        <div class="insight-text">
+          <strong>次の一手</strong>
+          <p>①Dをメインに採用しつつ、55〜60%ゾーンにCTAを追加配置する。②A・B・C・DそれぞれのCVR（実際のフォーム到達数・申込数）を照合して、PVだけでなくCV効率も比較する。③パターンCのFV訴求を見直し、冒頭集中を高められればDに匹敵する可能性がある。</p>
+          <span class="verdict positive">D採用 ＋ 55〜60% CTA追加が最優先</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /tab4 -->
 
 <div class="footer">
   Clarity Attention Map 比較レポート｜株）ブレインマークス LPO Project｜2026-05-27
 </div>
 
 <script>
-  // ─── データ定義 ─────────────────────────
-  const depths = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100];
+const DEPTHS = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100];
+const LABELS = DEPTHS.map(d => d + '%');
 
-  // 時間を秒に変換
-  const oldTime = [187,191,3,1,3,13,2,3,20,1,5,1,2,1,1,9,11,6,0,2];
-  const newTime = [36,4,8,9,4,0,0,14,23,0,11,9,9,8,12,11,16,17,0,0];
+const COLORS = {
+  a: { line: '#fb923c', fill: 'rgba(251,146,60,0.15)' },
+  b: { line: '#34d399', fill: 'rgba(52,211,153,0.15)' },
+  c: { line: '#60a5fa', fill: 'rgba(96,165,250,0.15)' },
+  d: { line: '#a78bfa', fill: 'rgba(167,139,250,0.15)' },
+};
 
-  // セッション占有率（%文字列 → 数値）
-  const oldSession = [39.89,40.58,0.69,0.24,0.79,2.87,0.57,0.72,4.25,0.27,1.27,0.41,0.52,0.27,0.27,1.98,2.46,1.47,0,0.48];
-  const newSession = [18.11,2.30,4.41,4.77,2.01,0.32,0,7.42,11.56,0.16,5.60,4.85,4.82,4.48,6.32,5.82,8.09,8.75,0.21,0];
+const DATA = {
+  tab1: {
+    patterns: [
+      { key:'a', label:'旧LP（お悩み＋顧客の声）',
+        time:    [187,191,3,1,3,13,2,3,20,1,5,1,2,1,1,9,11,6,0,2],
+        session: [39.89,40.58,0.69,0.24,0.79,2.87,0.57,0.72,4.25,0.27,1.27,0.41,0.52,0.27,0.27,1.98,2.46,1.47,0,0.48] },
+      { key:'b', label:'新LP（プログラム内容）',
+        time:    [36,4,8,9,4,0,0,14,23,0,11,9,9,8,12,11,16,17,0,0],
+        session: [18.11,2.30,4.41,4.77,2.01,0.32,0,7.42,11.56,0.16,5.60,4.85,4.82,4.48,6.32,5.82,8.09,8.75,0.21,0] },
+    ]
+  },
+  tab2: {
+    patterns: [
+      { key:'a', label:'パターン A（28 PV）',
+        time:    [14,6,7,2,3,7,2,1,0,0,0,11,0,0,0,0,0,0,0,0],
+        session: [24.21,11.45,11.91,4.23,5.97,12.25,4.19,2.77,1.63,1.05,0,19.37,0.74,0.09,0.15,0,0,0,0,0] },
+      { key:'b', label:'パターン B（15 PV）',
+        time:    [10,1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        session: [60.50,11.23,26.29,0.99,0.99,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+    ]
+  },
+  tab3: {
+    patterns: [
+      { key:'a', label:'パターン A（76 PV）',
+        time:    [280,273,3,21,2,2,22,9,2,1,5,8,0,0,1,3,3,8,0,0],
+        session: [43.18,41.98,0.48,3.35,0.41,0.45,3.43,1.53,0.32,0.17,0.78,1.25,0.06,0.05,0.22,0.53,0.48,1.26,0,0.08] },
+      { key:'b', label:'パターン B（40 PV）',
+        time:    [73,15,3,0,2,5,9,6,8,2,2,1,0,0,0,0,6,9,0,0],
+        session: [49.51,10.25,2.11,0.19,1.62,4.05,6.19,4.72,5.65,1.88,1.81,0.88,0.22,0,0.03,0.18,4.42,6.30,0,0] },
+    ]
+  },
+  tab4: {
+    patterns: [
+      { key:'a', label:'パターン A（154 PV）',
+        time:    [23,19,3,1,3,4,6,6,2,1,21,18,0,0,0,1,0,0,0,0],
+        session: [20.39,16.89,3.25,1.18,2.84,4.20,5.58,5.18,2.11,1.20,18.20,15.95,0.20,0.08,0.23,1.57,0.24,0.15,0,0.55] },
+      { key:'b', label:'パターン B（131 PV）',
+        time:    [17,20,5,0,4,7,11,11,4,1,12,2,7,3,8,1,9,2,0,0],
+        session: [13.25,15.55,3.79,0.75,3.35,5.77,8.47,8.54,3.61,0.80,9.47,2.06,5.30,2.99,6.05,1.03,6.94,2.12,0.16,0] },
+      { key:'c', label:'パターン C（123 PV）',
+        time:    [13,10,5,2,5,10,16,8,5,3,7,13,4,1,1,3,8,0,1,0],
+        session: [10.99,8.41,4.65,1.60,4.42,8.58,12.71,6.68,4.69,2.68,6.11,10.85,3.91,1.43,1.38,3.13,6.71,0.13,0.94,0] },
+      { key:'d', label:'パターン D（166 PV）',
+        time:    [17,13,2,1,5,7,14,4,6,5,25,9,9,6,12,11,22,4,0,1],
+        session: [9.43,7.65,1.48,0.99,3.07,4.37,7.67,2.38,3.48,3.02,13.91,5.14,4.93,3.48,6.98,6.41,12.53,2.26,0,0.82] },
+    ]
+  },
+};
 
-  const oldColor     = 'rgba(251, 146, 60, 1)';
-  const newColor     = 'rgba(52, 211, 153, 1)';
-  const oldColorFill = 'rgba(251, 146, 60, 0.15)';
-  const newColorFill = 'rgba(52, 211, 153, 0.15)';
-  const zoneColor    = 'rgba(245, 158, 11, 0.08)';
-
-  const baseOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    interaction: { mode: 'index', intersect: false },
-    plugins: {
-      legend: {
-        labels: { color: '#8892a4', font: { size: 12 } }
-      },
-      tooltip: {
-        backgroundColor: '#1e2335',
-        titleColor: '#c7d0e8',
-        bodyColor: '#8892a4',
-        borderColor: '#2e3550',
-        borderWidth: 1,
-      },
-      // 差し替えゾーン（5〜10%）ハイライト用カスタムプラグイン
-      annotation: false,
+const BASE_OPTIONS = {
+  responsive: true,
+  maintainAspectRatio: false,
+  interaction: { mode: 'index', intersect: false },
+  plugins: {
+    legend: { labels: { color: '#8892a4', font: { size: 12 } } },
+    tooltip: {
+      backgroundColor: '#1e2335', titleColor: '#c7d0e8',
+      bodyColor: '#8892a4', borderColor: '#2e3550', borderWidth: 1,
     },
-    scales: {
-      x: {
-        ticks: { color: '#4f6080', font: { size: 11 } },
-        grid:  { color: '#1e2335' },
-        title: { display: true, text: 'スクロール深度 (%)', color: '#4f6080', font: { size: 11 } },
-      },
-      y: {
-        ticks: { color: '#4f6080', font: { size: 11 } },
-        grid:  { color: '#1e2335' },
-      }
-    }
-  };
+  },
+  scales: {
+    x: {
+      ticks: { color: '#4f6080', font: { size: 11 } },
+      grid:  { color: '#1e2335' },
+      title: { display: true, text: 'スクロール深度 (%)', color: '#4f6080', font: { size: 11 } },
+    },
+    y: {
+      ticks: { color: '#4f6080', font: { size: 11 } },
+      grid:  { color: '#1e2335' },
+    },
+  },
+};
 
-  // 差し替えゾーン描画プラグイン（5〜10% をハイライト）
-  const zonePlugin = {
-    id: 'changeZone',
-    beforeDraw(chart) {
-      const { ctx, chartArea, scales } = chart;
-      const x5  = scales.x.getPixelForValue(0);  // index 0 = depth 5
-      const x10 = scales.x.getPixelForValue(1);  // index 1 = depth 10
-      ctx.save();
-      ctx.fillStyle = 'rgba(245, 158, 11, 0.10)';
-      ctx.fillRect(x5, chartArea.top, x10 - x5, chartArea.bottom - chartArea.top);
-      ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
-      ctx.lineWidth = 1;
-      ctx.setLineDash([4, 4]);
-      ctx.beginPath();
-      ctx.moveTo(x5, chartArea.top);
-      ctx.lineTo(x5, chartArea.bottom);
-      ctx.moveTo(x10, chartArea.top);
-      ctx.lineTo(x10, chartArea.bottom);
-      ctx.stroke();
-      // ラベル
-      ctx.setLineDash([]);
-      ctx.fillStyle = 'rgba(245, 158, 11, 0.7)';
-      ctx.font = '10px sans-serif';
-      ctx.fillText('差し替えゾーン', x5 + 4, chartArea.top + 14);
-      ctx.restore();
-    }
-  };
+// 差し替えゾーンハイライト（tab1 のみ）
+const zonePlugin = {
+  id: 'changeZone',
+  beforeDraw(chart) {
+    const { ctx, chartArea, scales } = chart;
+    const x5  = scales.x.getPixelForValue(0);
+    const x10 = scales.x.getPixelForValue(1);
+    ctx.save();
+    ctx.fillStyle = 'rgba(245,158,11,0.10)';
+    ctx.fillRect(x5, chartArea.top, x10 - x5, chartArea.bottom - chartArea.top);
+    ctx.strokeStyle = 'rgba(245,158,11,0.4)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4,4]);
+    ctx.beginPath();
+    ctx.moveTo(x5, chartArea.top); ctx.lineTo(x5, chartArea.bottom);
+    ctx.moveTo(x10, chartArea.top); ctx.lineTo(x10, chartArea.bottom);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(245,158,11,0.7)';
+    ctx.font = '10px sans-serif';
+    ctx.fillText('差し替えゾーン', x5 + 4, chartArea.top + 14);
+    ctx.restore();
+  }
+};
 
-  // ─── Chart 1: Time ───────────────────────
-  new Chart(document.getElementById('chartTime'), {
+const initialized = {};
+
+function buildDatasets(tabId, type) {
+  return DATA[tabId].patterns.map(p => ({
+    label: p.label,
+    data: type === 'time' ? p.time : p.session,
+    backgroundColor: COLORS[p.key].fill,
+    borderColor:     COLORS[p.key].line,
+    borderWidth: 2,
+    borderRadius: type === 'time' ? 4 : 0,
+    pointRadius: type === 'session' ? 4 : undefined,
+    pointHoverRadius: type === 'session' ? 6 : undefined,
+    fill: type === 'session' ? true : undefined,
+    tension: type === 'session' ? 0.3 : undefined,
+  }));
+}
+
+function initTab(tabId) {
+  if (initialized[tabId]) return;
+  initialized[tabId] = true;
+
+  const isTab1 = tabId === 'tab1';
+  const plugins = isTab1 ? [zonePlugin] : [];
+
+  new Chart(document.getElementById(tabId.replace('tab','t') + '_time'), {
     type: 'bar',
-    data: {
-      labels: depths.map(d => d + '%'),
-      datasets: [
-        {
-          label: '旧LP（お悩み＋顧客の声）',
-          data: oldTime,
-          backgroundColor: oldColorFill,
-          borderColor: oldColor,
-          borderWidth: 2,
-          borderRadius: 4,
-        },
-        {
-          label: '新LP（プログラム内容）',
-          data: newTime,
-          backgroundColor: newColorFill,
-          borderColor: newColor,
-          borderWidth: 2,
-          borderRadius: 4,
-        }
-      ]
-    },
-    options: {
-      ...baseOptions,
-      scales: {
-        ...baseOptions.scales,
-        y: {
-          ...baseOptions.scales.y,
-          title: { display: true, text: '平均注意時間（秒）', color: '#4f6080', font: { size: 11 } },
-        }
-      }
-    },
-    plugins: [zonePlugin]
+    data: { labels: LABELS, datasets: buildDatasets(tabId, 'time') },
+    options: { ...BASE_OPTIONS, scales: { ...BASE_OPTIONS.scales,
+      y: { ...BASE_OPTIONS.scales.y, title: { display:true, text:'平均注意時間（秒）', color:'#4f6080', font:{size:11} } }
+    }},
+    plugins,
   });
 
-  // ─── Chart 2: Session % ──────────────────
-  new Chart(document.getElementById('chartSession'), {
+  new Chart(document.getElementById(tabId.replace('tab','t') + '_session'), {
     type: 'line',
-    data: {
-      labels: depths.map(d => d + '%'),
-      datasets: [
-        {
-          label: '旧LP（お悩み＋顧客の声）',
-          data: oldSession,
-          backgroundColor: oldColorFill,
-          borderColor: oldColor,
-          borderWidth: 2,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-          fill: true,
-          tension: 0.3,
-        },
-        {
-          label: '新LP（プログラム内容）',
-          data: newSession,
-          backgroundColor: newColorFill,
-          borderColor: newColor,
-          borderWidth: 2,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-          fill: true,
-          tension: 0.3,
-        }
-      ]
-    },
-    options: {
-      ...baseOptions,
-      scales: {
-        ...baseOptions.scales,
-        y: {
-          ...baseOptions.scales.y,
-          title: { display: true, text: 'セッション占有率（%）', color: '#4f6080', font: { size: 11 } },
-        }
-      }
-    },
-    plugins: [zonePlugin]
+    data: { labels: LABELS, datasets: buildDatasets(tabId, 'session') },
+    options: { ...BASE_OPTIONS, scales: { ...BASE_OPTIONS.scales,
+      y: { ...BASE_OPTIONS.scales.y, title: { display:true, text:'セッション占有率（%）', color:'#4f6080', font:{size:11} } }
+    }},
+    plugins,
   });
+}
+
+function showTab(tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === tabId));
+  initTab(tabId);
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => showTab(btn.dataset.tab));
+});
+
+// 初期表示
+initTab('tab1');
 </script>
 </body>
 </html>
