@@ -448,21 +448,19 @@
     <div class="section-title">所感・考察</div>
     <div class="analysis-grid cols-2">
       <div class="analysis-card a">
-        <h4>📌 パターン A（28 PV）</h4>
+        <h4>📌 パターン A</h4>
         <ul>
-          <li>5〜30% に広めに注意が分散し、後半への離脱が緩やか</li>
-          <li>60% 位置に追加ピーク（19.37%）→ ページ中盤まで誘導できている</li>
-          <li>誘導率改善という目的に沿ったアテンション分布</li>
-          <li>サンプル数が少ないため、現時点では傾向の確認にとどまる</li>
+          <li>FVのキャッチコピーが訪問者に刺さっている可能性が高い</li>
+          <li>パターンBに比べて継続してスクロールされており、コンテンツが読まれている</li>
+          <li>中盤（60%）まで注意が到達 → FVから先への誘導が機能している</li>
         </ul>
       </div>
       <div class="analysis-card b">
-        <h4>📌 パターン B（15 PV）</h4>
+        <h4>📌 パターン B</h4>
         <ul>
-          <li>5〜15% のみにセッション時間の98%が集中</li>
-          <li>16% 以降はほぼゼロ → 後半コンテンツが読まれていない</li>
-          <li>誘導率改善の効果は現時点では確認できない</li>
-          <li>PV 数が非常に少なく、データとしての信頼性が低い</li>
+          <li>5〜15%のみで集中が終わり、冒頭での離脱が多い</li>
+          <li>FVで興味を引けなかった訪問者がそのまま離脱している状態</li>
+          <li>「気づき系」のアプローチが訪問者の行動変容につながっていない可能性</li>
         </ul>
       </div>
     </div>
@@ -471,25 +469,25 @@
       <div class="insight-item">
         <div class="insight-num">1</div>
         <div class="insight-text">
-          <strong>パターンAが中盤誘導に優位</strong>
-          <p>60%位置の追加ピークはパターンAに特有の動き。冒頭で興味を引いた後もスクロールが続いており、誘導率改善の目的に沿った結果が出ている。</p>
-          <span class="verdict positive">パターンA が現時点で優勢</span>
+          <strong>パターンAのキャッチコピーが機能している可能性</strong>
+          <p>パターンBに比べて継続して読まれていることから、AのFVキャッチコピーが訪問者に刺さっている可能性が高い。中盤（60%）まで注意が届いており、コンテンツへの関心を引き出せている。</p>
+          <span class="verdict positive">キャッチコピーの訴求が継続読了につながっている</span>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-num">2</div>
         <div class="insight-text">
-          <strong>パターンBは冒頭離脱の典型パターン</strong>
-          <p>5〜15%に集中して終わる分布は、FVだけ見て離脱するユーザーが多いことを示す。誘導率改善の施策として機能するためには、後半への動線を強化する改修が必要。</p>
-          <span class="verdict caution">後半誘導の仕組みが不足</span>
+          <strong>パターンBは「興味を持てなかった人の離脱」が多い</strong>
+          <p>冒頭のみで集中が終わっているのは、FVで興味を持てなかった訪問者がほぼそのまま離脱していることを示す。「気づき系」のアプローチが刺さらず、もったいない構成になってしまっている可能性がある。</p>
+          <span class="verdict caution">FVの訴求軸を見直す余地あり</span>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-num">3</div>
         <div class="insight-text">
           <strong>次の一手</strong>
-          <p>①A・B合計でもPVが43と少ないため、結論は継続計測後に出す。②パターンAの60%ピーク位置にCTAを追加し、誘導率をさらに高める。③パターンBはFV後の次のセクションへの引き込みを強化する改修を検討する。</p>
-          <span class="verdict neutral">継続計測しながらAをベースに改善</span>
+          <p>パターンAをベースに、キャッチコピーの訴求軸を変えた別パターンを作成してさらなる改善を図るのが有効。Bの「気づき系」アプローチは再考するか、FV以降のコンテンツとの繋がりを強化する方向で改修を検討する。</p>
+          <span class="verdict neutral">Aをベースに新パターン作成で精度アップ</span>
         </div>
       </div>
     </div>
@@ -511,13 +509,12 @@
       <p>各スクロール深度で平均何秒注目されたか。</p>
       <div class="chart-wrapper"><canvas id="t3_time"></canvas></div>
     </div>
-    <div class="note-banner green">
-      <span class="icon">✅</span>
+    <div class="note-banner yellow">
+      <span class="icon">📊</span>
       <div>
-        <strong style="display:block;margin-bottom:3px;">パターンBは後半にも注意が残存 → 離脱防止の萌芽</strong>
-        パターンAは5〜10%に85%超が集中し、後半がほぼ読まれていない。
-        パターンBも冒頭集中はあるものの、35〜45%・85〜90%にも注意が残り、後半まで読むユーザー層が存在する。
-        離脱防止という目的においてはパターンBが優勢。
+        <strong style="display:block;margin-bottom:3px;">ポップアップの表示回数が少なく、離脱防止効果の検証が難しい状況</strong>
+        両パターンともポップアップが設定されているが、実際の表示回数が少なかった。
+        そのため今回のデータは、ポップアップ施策の効果検証というよりも、単純なLP閲覧行動の比較になっている。
       </div>
     </div>
     <div class="chart-card" style="margin-top:16px">
@@ -549,21 +546,19 @@
     <div class="section-title">所感・考察</div>
     <div class="analysis-grid cols-2">
       <div class="analysis-card a">
-        <h4>📌 パターン A（76 PV）</h4>
+        <h4>📌 パターン A</h4>
         <ul>
-          <li>5〜10% に <strong>85%超</strong> が集中。典型的な冒頭集中型</li>
-          <li>15% 以降はほぼゼロ → 後半への到達が極めて少ない</li>
-          <li>離脱防止施策として後半コンテンツが機能していない状態</li>
-          <li>PV数は多いが、目的（離脱防止）との乖離が大きい</li>
+          <li>5〜10% に85%超が集中。後半がほぼ読まれていない</li>
+          <li>ポップアップが発動する前に離脱しているケースが多い可能性</li>
+          <li>離脱防止コンテンツが機能するスクロール深度まで到達していない</li>
         </ul>
       </div>
       <div class="analysis-card b">
-        <h4>📌 パターン B（40 PV）</h4>
+        <h4>📌 パターン B</h4>
         <ul>
-          <li>5% に49.5%の集中はあるが、冒頭依存が緩和されている</li>
-          <li>35〜45% に中盤ピーク → コンテンツが離脱を引き止めている</li>
-          <li>85〜90% にも6%超の注意 → ページ最後まで到達するユーザーが存在</li>
-          <li>離脱防止という目的に対して、最も近い動きを見せている</li>
+          <li>冒頭集中はあるものの、中盤（35〜45%）と後半（85〜90%）にも注意が残る</li>
+          <li>ポップアップが表示されうる深度まで到達するユーザーが存在</li>
+          <li>ただし表示回数が少なく、ポップアップ効果の検証には至っていない</li>
         </ul>
       </div>
     </div>
@@ -572,25 +567,25 @@
       <div class="insight-item">
         <div class="insight-num">1</div>
         <div class="insight-text">
-          <strong>目的との整合性でパターンBが明確に優勢</strong>
-          <p>「離脱防止」という施策目的に対して、後半まで注意が残るパターンBのほうが結果として合致している。パターンAはPVが多いにもかかわらず、後半が読まれていないという構造的な問題がある。</p>
-          <span class="verdict positive">パターン B が施策目的に合致</span>
+          <strong>ポップアップの表示機会が少なく、効果を評価できる状況になかった</strong>
+          <p>離脱トリガーによるポップアップの表示回数が全体的に少なかったため、ポップアップ施策そのものの効果を評価できる状況にはなかった。両パターンの差は、ポップアップの有無よりもLP本体の閲覧行動の違いとして読み取るべきデータになっている。</p>
+          <span class="verdict caution">ポップアップ効果は今回のデータでは判断不可</span>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-num">2</div>
         <div class="insight-text">
-          <strong>パターンAは冒頭施策の強さが仇になっている可能性</strong>
-          <p>5〜10%に強い集中が起きているのは、冒頭コンテンツ自体の訴求力が高いから。ただし「冒頭で満足 → 離脱」のループが起きているとすれば、その後の離脱防止コンテンツが機能する前に離脱している構造的な問題がある。</p>
-          <span class="verdict caution">冒頭の強さが後半誘導を阻害している可能性</span>
+          <strong>今回は単純な広告力での比較になっている</strong>
+          <p>ポップアップが実際に機能したケースが少ないため、実質的には「どちらのLPが深くまで読まれるか」という比較になっている。離脱防止施策としての検証は、ポップアップが実際に多く表示される状況を作ったうえで改めて計測する必要がある。</p>
+          <span class="verdict neutral">施策の再設計と再計測が必要</span>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-num">3</div>
         <div class="insight-text">
           <strong>次の一手</strong>
-          <p>①パターンBをベースにして、中盤（35〜45%）と後半（85〜90%）のCTAを強化する。②パターンBの冒頭（5%）集中を少し分散させてより均等な分布にできれば、さらに改善が見込める。③パターンAの冒頭コンテンツのあとに「次を読みたくなる」フックを追加する改修も有効。</p>
-          <span class="verdict positive">パターンBの中盤・後半CTA強化が最優先</span>
+          <p>ポップアップが実際に表示・機能するためのトリガー条件（スクロール深度・滞在時間・離脱インテント）を見直したうえで再計測する。ポップアップの表示率自体を指標として計測できる環境を整えることが先決。</p>
+          <span class="verdict neutral">トリガー条件の見直しと再計測が先決</span>
         </div>
       </div>
     </div>
@@ -615,9 +610,9 @@
     <div class="note-banner blue">
       <span class="icon">📊</span>
       <div>
-        <strong style="display:block;margin-bottom:3px;">A・D共通の55〜60%ピーク → 広告ターゲットに響くゾーン</strong>
-        パターンAとDは共に55〜60%位置で強いピークを形成。この位置のコンテンツが複数の広告ターゲット層に共通して刺さっている可能性が高い。
-        パターンDは最大PV（166）を持ちながら後半（85%）まで注意が持続しており、最も深く読まれているパターン。
+        <strong style="display:block;margin-bottom:3px;">B・Dにユーザーの反応が高い構造 / 士業向けにはB、介護向けにはDがブラッシュアップ候補</strong>
+        B・Dはスクロールが深くまで続いており、訪問者が積極的にコンテンツを読んでいることがわかる。
+        士業（歯・税理士）向けのA・BではBの閲覧行動がより安定している。DはLPを深くまで読み進める構造ができており、介護向けとして特化してさらに磨ける可能性がある。
       </div>
     </div>
     <div class="chart-card" style="margin-top:16px">
@@ -659,39 +654,36 @@
     <div class="section-title">所感・考察</div>
     <div class="analysis-grid cols-4">
       <div class="analysis-card a">
-        <h4>📌 パターン A（154 PV）</h4>
+        <h4>📌 パターン A</h4>
         <ul>
-          <li>5-10%（37%）と55-60%（34%）の<strong>二山型</strong></li>
-          <li>FVと中盤で二度の山を形成</li>
-          <li>冒頭→中盤への誘導が機能している</li>
+          <li>FVと中盤（55-60%）の二山型</li>
+          <li>冒頭→中盤への誘導は機能している</li>
           <li>後半（70%〜）への到達は薄め</li>
+          <li>士業ターゲットへの訴求としてはBに後れを取る</li>
         </ul>
       </div>
       <div class="analysis-card b">
-        <h4>📌 パターン B（131 PV）</h4>
+        <h4>📌 パターン B</h4>
         <ul>
-          <li>全体に広く均等に分散</li>
-          <li>55〜75% ゾーンに持続的な注意</li>
-          <li>「じっくり読む層」に合った分布</li>
-          <li>特定の山がなく安定感がある</li>
+          <li>全体に広く分散し、55〜75%ゾーンに持続的な注意</li>
+          <li>士業（歯・税理士）ターゲットが深くコンテンツを読んでいる</li>
+          <li>A・BではBの閲覧行動がより安定しており士業向けに適している</li>
         </ul>
       </div>
       <div class="analysis-card c">
-        <h4>📌 パターン C（123 PV）</h4>
+        <h4>📌 パターン C</h4>
         <ul>
-          <li>35% にピーク（12.71%）→ 中盤早めに注目集中</li>
-          <li>55-60% にも中程度のピーク</li>
-          <li>冒頭（5-10%）の集中がADより低め</li>
-          <li>FVの訴求力がやや弱い可能性</li>
+          <li>35% にピーク → 中盤早めに注目が集まる</li>
+          <li>FVでの初期集中が他より低め</li>
+          <li>広告からLPへの訴求の一貫性を確認する余地あり</li>
         </ul>
       </div>
       <div class="analysis-card d">
-        <h4>📌 パターン D（166 PV）</h4>
+        <h4>📌 パターン D</h4>
         <ul>
-          <li>4パターン中 <strong>最大PV</strong></li>
-          <li>55% と 85% の二山型 → 後半まで深く到達</li>
-          <li>後半の持続力が4パターン中で最も高い</li>
-          <li>広告訴求力と読了率の両面で最優秀</li>
+          <li>55% と 85% の二山型で、最も深部まで読まれている</li>
+          <li>介護ターゲットがLPを積極的に探索している可能性</li>
+          <li>介護向けにさらに特化してブラッシュアップする余地がある</li>
         </ul>
       </div>
     </div>
@@ -700,33 +692,33 @@
       <div class="insight-item">
         <div class="insight-num">1</div>
         <div class="insight-text">
-          <strong>パターンDが総合的に最優秀</strong>
-          <p>PV最大（166）かつ後半（55%・85%）まで最も深く読まれている。広告からの流入誘引力と、LPを最後まで読ませる力を両立しており、4パターン中で最もコンバージョンにつながりやすい構造と判断できる。</p>
-          <span class="verdict positive">パターン D が全指標でリード</span>
+          <strong>B・Dがユーザーの反応が高い構造になっている</strong>
+          <p>BとDはともにスクロールが深くまで続いており、訪問者が積極的にコンテンツを探索していることがわかる。広告クリエイティブとLPの訴求が合致し、「読み進めたい」と思わせる流れが作れている。</p>
+          <span class="verdict positive">B・D が閲覧の深度で優れている</span>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-num">2</div>
         <div class="insight-text">
-          <strong>A・D共通の55〜60%ピークは重要なシグナル</strong>
-          <p>異なる広告クリエイティブから流入したA・Dのユーザーが同じ位置（55〜60%）で注目している事実は、その位置のコンテンツが複数ターゲット層に刺さっていることを意味する。このゾーンへのCTA追加は全パターン共通で有効と考えられる。</p>
-          <span class="verdict positive">55〜60% ゾーンはCTA追加の最優先位置</span>
+          <strong>士業向けにはパターンBが優勢</strong>
+          <p>A・Bを士業（歯・税理士）向けの比較として見ると、Bのほうが全体に均等に分散しており、より深くコンテンツを読んでいる。士業ターゲットに対してBの訴求軸が刺さっている可能性が高い。</p>
+          <span class="verdict positive">士業ターゲットにはB</span>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-num">3</div>
         <div class="insight-text">
-          <strong>パターンBの均等分散は「熟読型ターゲット」向きの可能性</strong>
-          <p>特定の山がなく全体に広く分散するパターンBは、特定の業種訴求より「論理的・情報収集型」のユーザーに刺さるFVかもしれない。CVRデータと照合することで、PV数は劣るがCV効率が高い可能性もある。</p>
-          <span class="verdict neutral">CVRデータとの照合で真価が判明</span>
+          <strong>パターンDは介護向けとしてブラッシュアップできる可能性</strong>
+          <p>Dはすべてのパターンの中で最も深部まで読まれており、介護ターゲットがLPを積極的に読み込んでいることがうかがえる。このまま介護施設・介護不足といった課題に特化してコンテンツを磨くことで、さらに刺さるLPに育てられる可能性がある。</p>
+          <span class="verdict positive">介護特化でDをさらにブラッシュアップ</span>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-num">4</div>
         <div class="insight-text">
-          <strong>次の一手</strong>
-          <p>①Dをメインに採用しつつ、55〜60%ゾーンにCTAを追加配置する。②A・B・C・DそれぞれのCVR（実際のフォーム到達数・申込数）を照合して、PVだけでなくCV効率も比較する。③パターンCのFV訴求を見直し、冒頭集中を高められればDに匹敵する可能性がある。</p>
-          <span class="verdict positive">D採用 ＋ 55〜60% CTA追加が最優先</span>
+          <strong>PVの多寡はLPの力ではなく広告配分で変わる</strong>
+          <p>各パターンのPV数は広告クリエイティブの訴求力や予算の配分によって変動するため、PVの多少をLPの優劣として評価すべきではない。アテンションの分布パターンと深度でLPの読まれ方を判断するのが適切。</p>
+          <span class="verdict neutral">PVより「どこまで・どれだけ読まれたか」で判断</span>
         </div>
       </div>
     </div>
