@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LP Attention 比較レポート｜ブレインマークス LPO</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+      background: #0f1117;
+      color: #e8eaf0;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+      border-bottom: 1px solid #2a2f3e;
+      padding: 40px 24px 32px;
+      text-align: center;
+    }
+    .header .label {
+      display: inline-block;
+      background: #3b4bdb;
+      color: #c7d0ff;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .header p {
+      font-size: 14px;
+      color: #8892a4;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .header .change-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      background: #1e2335;
+      border: 1px solid #2e3550;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: #a8b2c8;
+    }
+    .change-badge .arrow { color: #f59e0b; font-size: 16px; }
+
+    /* ── Layout ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 40px 0; }
+    .section-title {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #4f6080;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #1e2335;
+    }
+
+    /* ── KPI Cards ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .kpi-card {
+      background: #1a1f2e;
+      border: 1px solid #2a2f3e;
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .kpi-card .kpi-label {
+      font-size: 11px;
+      color: #4f6080;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .kpi-card .kpi-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .kpi-card .kpi-sub {
+      font-size: 12px;
+      color: #8892a4;
+      margin-top: 2px;
+    }
+    .kpi-card.old .kpi-value { color: #fb923c; }
+    .kpi-card.new .kpi-value { color: #34d399; }
+    .kpi-card.diff .kpi-value { color: #a78bfa; }
+
+    /* ── Version Labels ── */
+    .version-labels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .version-label {
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .version-label.old {
+      background: rgba(251, 146, 60, 0.12);
+      border: 1px solid rgba(251, 146, 60, 0.3);
+      color: #fb923c;
+    }
+    .version-label.new {
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      color: #34d399;
+    }
+
+    /* ── Image Comparison ── */
+    .image-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .image-card {
+      background: #1a1f2e;
+      border: 1px solid #2a2f3e;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .image-card .img-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #2a2f3e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .image-card img {
+      width: 100%;
+      display: block;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .tag.old { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
+    .tag.new { background: rgba(52, 211, 153, 0.15); color: #34d399; }
+
+    /* ── Chart Area ── */
+    .chart-card {
+      background: #1a1f2e;
+      border: 1px solid #2a2f3e;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .chart-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #c7d0e8;
+      margin-bottom: 6px;
+    }
+    .chart-card p {
+      font-size: 12px;
+      color: #4f6080;
+      margin-bottom: 20px;
+    }
+    .chart-wrapper { position: relative; height: 320px; }
+
+    /* ── Change Zone annotation ── */
+    .change-zone-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #c8a85a;
+    }
+    .change-zone-note .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Analysis ── */
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .analysis-card {
+      background: #1a1f2e;
+      border: 1px solid #2a2f3e;
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+    .analysis-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .analysis-card.old h4 { color: #fb923c; }
+    .analysis-card.new h4 { color: #34d399; }
+    .analysis-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .analysis-card ul li {
+      font-size: 13px;
+      color: #8892a4;
+      padding-left: 16px;
+      position: relative;
+    }
+    .analysis-card ul li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: #3b4bdb;
+    }
+
+    .insight-box {
+      background: #1a1f2e;
+      border: 1px solid #3b4bdb;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .insight-box h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #a5b4fc;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .insight-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .insight-item:last-child { margin-bottom: 0; }
+    .insight-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      background: #3b4bdb;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 1px;
+    }
+    .insight-text strong {
+      display: block;
+      font-size: 14px;
+      color: #c7d0e8;
+      margin-bottom: 4px;
+    }
+    .insight-text p {
+      font-size: 13px;
+      color: #6b7a94;
+    }
+    .insight-text .verdict {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .verdict.positive { background: rgba(52, 211, 153, 0.15); color: #34d399; }
+    .verdict.caution  { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .verdict.negative { background: rgba(251, 113, 133, 0.15); color: #fb7185; }
+
+    .footer {
+      padding: 32px 24px;
+      text-align: center;
+      border-top: 1px solid #1e2335;
+      font-size: 12px;
+      color: #3a4560;
+    }
+
+    @media (max-width: 680px) {
+      .image-grid, .analysis-grid, .version-labels { grid-template-columns: 1fr; }
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+      .header h1 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────── -->
+<div class="header">
+  <div class="label">LPO レポート｜Microsoft Clarity Attention Map</div>
+  <h1>LP 改善前後の Attention 分析</h1>
+  <p>株）ブレインマークス｜マップ塾LPのコンテンツ差し替え効果を可視化</p>
+  <div class="change-badge">
+    <span>旧：お悩みパート ＋ 顧客の声（5〜10%位置）</span>
+    <span class="arrow">→</span>
+    <span>新：プログラム内容</span>
+  </div>
+</div>
+
+<!-- ─── KPI ─────────────────────────────────────────── -->
+<div class="container">
+  <div class="section">
+    <div class="section-title">概要指標</div>
+    <div class="kpi-grid">
+      <div class="kpi-card old">
+        <div class="kpi-label">旧LP ページビュー</div>
+        <div class="kpi-value">234</div>
+        <div class="kpi-sub">03/24〜04/22（30日間）</div>
+      </div>
+      <div class="kpi-card new">
+        <div class="kpi-label">新LP ページビュー</div>
+        <div class="kpi-value">661</div>
+        <div class="kpi-sub">05/01〜05/27（27日間）</div>
+      </div>
+      <div class="kpi-card old">
+        <div class="kpi-label">旧LP：5% 位置の注意（時間）</div>
+        <div class="kpi-value">3:07</div>
+        <div class="kpi-sub">セッション占有率 39.9%</div>
+      </div>
+      <div class="kpi-card new">
+        <div class="kpi-label">新LP：5% 位置の注意（時間）</div>
+        <div class="kpi-value">0:36</div>
+        <div class="kpi-sub">セッション占有率 18.1%</div>
+      </div>
+      <div class="kpi-card old">
+        <div class="kpi-label">旧LP：10% 位置の注意（時間）</div>
+        <div class="kpi-value">3:11</div>
+        <div class="kpi-sub">セッション占有率 40.6%</div>
+      </div>
+      <div class="kpi-card new">
+        <div class="kpi-label">新LP：10% 位置の注意（時間）</div>
+        <div class="kpi-value">0:04</div>
+        <div class="kpi-sub">セッション占有率 2.3%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── HEATMAP IMAGES ────────────────────────────── -->
+  <div class="section" style="padding-top:0">
+    <div class="section-title">Attention Map 比較</div>
+    <div class="version-labels">
+      <div class="version-label old">旧LP｜お悩み＋顧客の声（03/24〜04/22）</div>
+      <div class="version-label new">新LP｜プログラム内容（05/01〜05/27）</div>
+    </div>
+    <div class="image-grid">
+      <div class="image-card">
+        <div class="img-header">
+          <span style="font-size:13px;color:#8892a4;">旧バージョン</span>
+          <span class="tag old">OLD • 234 PV</span>
+        </div>
+        <img src="heatmap_old.png" alt="旧LP Attentionマップ">
+      </div>
+      <div class="image-card">
+        <div class="img-header">
+          <span style="font-size:13px;color:#8892a4;">新バージョン</span>
+          <span class="tag new">NEW • 661 PV</span>
+        </div>
+        <img src="heatmap_new.png" alt="新LP Attentionマップ">
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CHART 1: TIME ────────────────────────────── -->
+  <div class="section" style="padding-top:0">
+    <div class="section-title">数値データ比較</div>
+    <div class="chart-card">
+      <h3>注意時間（秒）の比較：スクロール深度ごと</h3>
+      <p>各スクロール深度で平均何秒注目されたか。差し替えた 5〜10% 付近の変化に注目。</p>
+      <div class="chart-wrapper">
+        <canvas id="chartTime"></canvas>
+      </div>
+    </div>
+    <div class="change-zone-note">
+      <span class="icon">⚡</span>
+      <div>
+        <strong style="display:block;margin-bottom:3px;">差し替えゾーン（5〜10%）での変化</strong>
+        旧LP では 5%・10% 位置に合計 <strong>約6分20秒</strong>（セッション時間の約80%！）が集中。
+        新LP では同位置の合計が <strong>40秒</strong> に減少。お悩み＋顧客の声が「読ませるコンテンツ」として機能していた証拠です。
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-top:16px">
+      <h3>セッション占有率（%）の比較：スクロール深度ごと</h3>
+      <p>各スクロール深度がセッション全体の何%を占めるか。注意の分布パターンを可視化。</p>
+      <div class="chart-wrapper">
+        <canvas id="chartSession"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── ANALYSIS ─────────────────────────────────── -->
+  <div class="section" style="padding-top:0">
+    <div class="section-title">所感・考察</div>
+
+    <div class="analysis-grid">
+      <div class="analysis-card old">
+        <h4>📌 旧LP の特徴（お悩み＋顧客の声）</h4>
+        <ul>
+          <li>5〜10% に全体の <strong>80%</strong> の注意が集中</li>
+          <li>お悩みパートへの共感 → 顧客の声での信頼形成という流れが機能</li>
+          <li>熟読型：少人数（234PV）が長時間滞在</li>
+          <li>15% 以降は注意が急激に落下 → 深部まで読まれていない</li>
+          <li>後半コンテンツ（料金・申込）への注意も薄い</li>
+        </ul>
+      </div>
+      <div class="analysis-card new">
+        <h4>📌 新LP の特徴（プログラム内容）</h4>
+        <ul>
+          <li>5〜10% の集中が解消 → 注意が全体に分散</li>
+          <li>40〜45% に次のピーク（プログラム詳細か価格帯付近？）</li>
+          <li>85〜90% にも持続的な注意 → ページ最後まで読まれている</li>
+          <li>PV 数が大幅増（×2.8倍）→ 母集団が異なる点に注意</li>
+          <li>「何を学ぶか」先出しによりスキャン型閲覧に移行した可能性</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <h3>🧠 総合所感</h3>
+
+      <div class="insight-item">
+        <div class="insight-num">1</div>
+        <div class="insight-text">
+          <strong>旧LP の「熟読集中型」は、感情的訴求の成功例</strong>
+          <p>5〜10% に全注意を集めたのは、お悩みパートと顧客の声の組み合わせが「自分ごと化」を生んだから。
+          ただし熟読後に深部へ進む動線が弱かった可能性がある。コンバージョンがここで完結していたなら問題ないが、
+          「全部読み終えたら安心して離脱」が起きていた疑いもある。</p>
+          <span class="verdict caution">要：コンバージョンデータとの照合</span>
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-num">2</div>
+        <div class="insight-text">
+          <strong>新LP の「分散閲覧型」は、コンテンツへの興味探索と解釈できる</strong>
+          <p>プログラム内容を先出しすることで、訪問者は「自分に合うか？」をスキャンしながらスクロールする行動に変化。
+          注意が薄く広く分散しているのは必ずしも悪いことではなく、
+          ページ全体を走査してから意思決定する「論理的・スペック重視」ユーザーには合っている。</p>
+          <span class="verdict positive">ページ全体到達率は改善</span>
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-num">3</div>
+        <div class="insight-text">
+          <strong>仮説：「共感→証拠→詳細」の順序を崩した可能性</strong>
+          <p>LPの王道は「悩みへの共感 → 信頼証明（実績・声） → 解決策（プログラム）」の順序。
+          新LPはプログラムを先出しすることで「まだ信頼も共感も持てていないのに詳細を見せられた」状態になりえる。
+          特に認知度の低い段階では、先に「あなたの悩みを知っている」と示すほうがコンバージョンに繋がりやすい。</p>
+          <span class="verdict negative">感情的訴求フローの逆転リスク</span>
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-num">4</div>
+        <div class="insight-text">
+          <strong>推奨次アクション</strong>
+          <p>①コンバージョン率（CV数）を旧・新で比較してこそ真の評価ができる。注意時間だけでは勝敗不明。
+          ②もし新LPのCVRが下がっているなら、プログラム内容の手前に「1〜2スライドの共感ブロック」を入れる折衷案が有効。
+          ③新LPの 40〜45% ピークの正体を確認（スクロールマップと照合）。ここがCTAなら新LP有利の可能性。</p>
+          <span class="verdict caution">CVデータとスクロールマップとの照合を推奨</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Clarity Attention Map 比較レポート｜株）ブレインマークス LPO Project｜2026-05-27
+</div>
+
+<script>
+  // ─── データ定義 ─────────────────────────
+  const depths = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100];
+
+  // 時間を秒に変換
+  const oldTime = [187,191,3,1,3,13,2,3,20,1,5,1,2,1,1,9,11,6,0,2];
+  const newTime = [36,4,8,9,4,0,0,14,23,0,11,9,9,8,12,11,16,17,0,0];
+
+  // セッション占有率（%文字列 → 数値）
+  const oldSession = [39.89,40.58,0.69,0.24,0.79,2.87,0.57,0.72,4.25,0.27,1.27,0.41,0.52,0.27,0.27,1.98,2.46,1.47,0,0.48];
+  const newSession = [18.11,2.30,4.41,4.77,2.01,0.32,0,7.42,11.56,0.16,5.60,4.85,4.82,4.48,6.32,5.82,8.09,8.75,0.21,0];
+
+  const oldColor     = 'rgba(251, 146, 60, 1)';
+  const newColor     = 'rgba(52, 211, 153, 1)';
+  const oldColorFill = 'rgba(251, 146, 60, 0.15)';
+  const newColorFill = 'rgba(52, 211, 153, 0.15)';
+  const zoneColor    = 'rgba(245, 158, 11, 0.08)';
+
+  const baseOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: {
+        labels: { color: '#8892a4', font: { size: 12 } }
+      },
+      tooltip: {
+        backgroundColor: '#1e2335',
+        titleColor: '#c7d0e8',
+        bodyColor: '#8892a4',
+        borderColor: '#2e3550',
+        borderWidth: 1,
+      },
+      // 差し替えゾーン（5〜10%）ハイライト用カスタムプラグイン
+      annotation: false,
+    },
+    scales: {
+      x: {
+        ticks: { color: '#4f6080', font: { size: 11 } },
+        grid:  { color: '#1e2335' },
+        title: { display: true, text: 'スクロール深度 (%)', color: '#4f6080', font: { size: 11 } },
+      },
+      y: {
+        ticks: { color: '#4f6080', font: { size: 11 } },
+        grid:  { color: '#1e2335' },
+      }
+    }
+  };
+
+  // 差し替えゾーン描画プラグイン（5〜10% をハイライト）
+  const zonePlugin = {
+    id: 'changeZone',
+    beforeDraw(chart) {
+      const { ctx, chartArea, scales } = chart;
+      const x5  = scales.x.getPixelForValue(0);  // index 0 = depth 5
+      const x10 = scales.x.getPixelForValue(1);  // index 1 = depth 10
+      ctx.save();
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.10)';
+      ctx.fillRect(x5, chartArea.top, x10 - x5, chartArea.bottom - chartArea.top);
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(x5, chartArea.top);
+      ctx.lineTo(x5, chartArea.bottom);
+      ctx.moveTo(x10, chartArea.top);
+      ctx.lineTo(x10, chartArea.bottom);
+      ctx.stroke();
+      // ラベル
+      ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.7)';
+      ctx.font = '10px sans-serif';
+      ctx.fillText('差し替えゾーン', x5 + 4, chartArea.top + 14);
+      ctx.restore();
+    }
+  };
+
+  // ─── Chart 1: Time ───────────────────────
+  new Chart(document.getElementById('chartTime'), {
+    type: 'bar',
+    data: {
+      labels: depths.map(d => d + '%'),
+      datasets: [
+        {
+          label: '旧LP（お悩み＋顧客の声）',
+          data: oldTime,
+          backgroundColor: oldColorFill,
+          borderColor: oldColor,
+          borderWidth: 2,
+          borderRadius: 4,
+        },
+        {
+          label: '新LP（プログラム内容）',
+          data: newTime,
+          backgroundColor: newColorFill,
+          borderColor: newColor,
+          borderWidth: 2,
+          borderRadius: 4,
+        }
+      ]
+    },
+    options: {
+      ...baseOptions,
+      scales: {
+        ...baseOptions.scales,
+        y: {
+          ...baseOptions.scales.y,
+          title: { display: true, text: '平均注意時間（秒）', color: '#4f6080', font: { size: 11 } },
+        }
+      }
+    },
+    plugins: [zonePlugin]
+  });
+
+  // ─── Chart 2: Session % ──────────────────
+  new Chart(document.getElementById('chartSession'), {
+    type: 'line',
+    data: {
+      labels: depths.map(d => d + '%'),
+      datasets: [
+        {
+          label: '旧LP（お悩み＋顧客の声）',
+          data: oldSession,
+          backgroundColor: oldColorFill,
+          borderColor: oldColor,
+          borderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          fill: true,
+          tension: 0.3,
+        },
+        {
+          label: '新LP（プログラム内容）',
+          data: newSession,
+          backgroundColor: newColorFill,
+          borderColor: newColor,
+          borderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          fill: true,
+          tension: 0.3,
+        }
+      ]
+    },
+    options: {
+      ...baseOptions,
+      scales: {
+        ...baseOptions.scales,
+        y: {
+          ...baseOptions.scales.y,
+          title: { display: true, text: 'セッション占有率（%）', color: '#4f6080', font: { size: 11 } },
+        }
+      }
+    },
+    plugins: [zonePlugin]
+  });
+</script>
+</body>
+</html>
